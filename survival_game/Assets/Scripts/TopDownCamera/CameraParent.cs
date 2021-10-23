@@ -49,38 +49,23 @@ public class CameraParent : MonoBehaviour {
         //User camera rotation
         if (trackPlayer)
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 isDragging = true;
+
+                if (cam.hideCursorOnRotate)
+                    Cursor.visible = false;
             }
                 
-            if (Input.GetMouseButton(0))
+
+            if (Input.GetMouseButton(1))
             {
                 if (isDragging)
                 {
                     speed = new Vector3(-Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0.0F);
                     avgSpeed = Vector3.Lerp(avgSpeed, speed, Time.deltaTime * 5);
                 }
-            }
-            else if(Input.GetMouseButton(1))
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-
-                if (isDragging)
-                {
-                    speed = new Vector3(-Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0.0F);
-                    avgSpeed = Vector3.Lerp(avgSpeed, speed, Time.deltaTime * 5);
-
-                    Ray ray = mainCam.ScreenPointToRay(_input.MousePosition);
-
-                    if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f))
-                    {
-                        var target = hitInfo.point;
-                        target.y = playerTarget.transform.position.y;
-                        playerTarget.transform.LookAt(target);
-                    }
-                }
+               
             }
             else
             {
@@ -89,12 +74,13 @@ public class CameraParent : MonoBehaviour {
                     Cursor.visible = true;
                     speed = avgSpeed;
                     isDragging = false;
-                    Cursor.lockState = CursorLockMode.None;
                 }
 
                 float i = Time.deltaTime * 5;
                 speed = Vector3.Lerp(speed, Vector3.zero, i);
-            }     
+            }
+
+
             transform.Rotate(transform.up * -speed.x * cam.rotationSpeed, Space.World);
 
         }

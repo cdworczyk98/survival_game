@@ -113,7 +113,6 @@ public class TopDownCamera : MonoBehaviour
 
             if (Physics.RaycastAll(ray, dis).Length > 0)
             {
-                //print("ff");
                 foreach (RaycastHit r in Physics.RaycastAll(ray, dis))
                 {
 
@@ -123,7 +122,7 @@ public class TopDownCamera : MonoBehaviour
                     if (hitObjects.Contains(r.collider.gameObject))
                         hitObjects.Add(r.collider.gameObject);
 
-                    if (!SearchObstructions(r.collider.gameObject))
+                    if (!SearchObstructions(r.collider.gameObject) && r.collider.gameObject.tag == "Fadeable")
                         obstructiveObjects.Add(CreateObstructionObj(r.collider.gameObject));
 
 
@@ -214,11 +213,11 @@ public class TopDownCamera : MonoBehaviour
         foreach(ObstructionObj o in obstructiveObjects)
         {
             
+
             foreach (ObstructionMat om in o.materials)
-            {                
+            {            
                 om.mat.color = Color.Lerp(new Color(om.mat.color.r, om.mat.color.g, om.mat.color.b, targetFadeAlpha), 
-                    new Color(om.mat.color.r, om.mat.color.g, om.mat.color.b, om.initialAlpha), o.tValue);
-                                
+                    new Color(om.mat.color.r, om.mat.color.g, om.mat.color.b, om.initialAlpha), o.tValue);              
             }
 
             if (o.activateFade)

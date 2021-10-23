@@ -27,10 +27,30 @@ public class TopDownCharacterMover : MonoBehaviour
         var targetVector = new Vector3(_input.InputVector.x, 0, _input.InputVector.y);
         var movementVector = MoveTowardTarget(targetVector);
         
-        if(!Input.GetMouseButton(1))
+        if(movementVector == Vector3.zero)
         {
-            RotateTowardMovementVector(movementVector);
+            if(Input.GetMouseButton(1))
+            {
+                    Vector3 camDir = Camera.main.transform.forward;
+                    camDir = Vector3.ProjectOnPlane(camDir, Vector3.up);
+                    transform.forward = camDir;
+            }
         }
+        else if (movementVector != Vector3.zero)
+        {
+            if(Input.GetMouseButton(1))
+            {
+                Vector3 camDir = Camera.main.transform.forward;
+                camDir = Vector3.ProjectOnPlane(camDir, Vector3.up);
+                transform.forward = camDir;
+            }
+            else
+            {
+                RotateTowardMovementVector(movementVector);
+            }
+        }
+        
+        
     }
 
     private Vector3 MoveTowardTarget(Vector3 targetVector)
