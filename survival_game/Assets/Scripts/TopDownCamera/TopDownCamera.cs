@@ -212,7 +212,6 @@ public class TopDownCamera : MonoBehaviour
         
         foreach(ObstructionObj o in obstructiveObjects)
         {
-            
 
             foreach (ObstructionMat om in o.materials)
             {            

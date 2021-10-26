@@ -15,6 +15,9 @@ public class TopDownCharacterMover : MonoBehaviour
 
     [SerializeField]
     private Camera Camera;
+    
+    [SerializeField]
+    LayerMask _aimLayerMask;
 
     private void Awake()
     {
@@ -68,5 +71,17 @@ public class TopDownCharacterMover : MonoBehaviour
         if(movementDirection.magnitude == 0) { return; }
         var rotation = Quaternion.LookRotation(movementDirection);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, RotationSpeed);
+    }
+
+    private void RotateTowardsTheMouse()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if(Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, _aimLayerMask))
+        {
+            var _direction = hitInfo.point - transform.position;
+            _direction.y = 0f;
+            _direction.Normalize();
+
+        }
     }
 }
