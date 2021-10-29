@@ -16,6 +16,14 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
     private Vector3 velocity = Vector3.zero;
     public float turnSpeed = 4.0f;
     public Vector3 _cameraOffset;
+    private float zoomIncrement;
+    private float targetZoom;
+
+    [Header("Zoom Controls")]
+    public bool zoomEnabled = true;
+    public float zoomMin = 20;
+    public float zoomMax = 70;
+    public float zoomSpeed = 1f;
  
     private void Start()
     {
@@ -26,6 +34,7 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
     {
         if(targetPlayer.GetComponent<PlayerMovement>().allowedMoving)
         {
+            //camera orbit
             if(Input.GetMouseButton(2))
             {
                 Quaternion camTurnAngle = Quaternion.AngleAxis (Input.GetAxis("Mouse X") * turnSpeed, Vector3.up);
@@ -38,7 +47,27 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
     
             // update rotation
             transform.LookAt(targetPlayer);
-        }
+
+            //Camera Zoom
+            if (zoomIncrement != (zoomMax - zoomMin) / 10)
+                zoomIncrement = (zoomMax - zoomMin) / 10;
+
+            float d = Input.GetAxis("Mouse ScrollWheel");
+
+            if (d > 0f)
+            {
+                if (targetZoom > zoomMin)
+                    targetZoom -= zoomIncrement;
+            }
+            else if (d < 0f)
+            {
+                if (targetZoom < zoomMax)
+                    targetZoom += zoomIncrement;
+            }
+
+            if(zoomEnabled)
+                GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, targetZoom, zoomSpeed * Time.deltaTime);
+            }
         
     }
 }

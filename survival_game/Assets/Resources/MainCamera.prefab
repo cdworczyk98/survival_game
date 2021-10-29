@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6560502851504660112}
   - component: {fileID: 6560502851504660113}
   - component: {fileID: 6560502851504660126}
+  - component: {fileID: 8026263867973587945}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -98,6 +99,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPlayer: {fileID: 0}
   camTransform: {fileID: 6560502851504660127}
-  Offset: {x: 0, y: 0, z: 0}
   SmoothTime: 0.3
   turnSpeed: 4
+  _cameraOffset: {x: 0, y: 11, z: -5}
+  zoomEnabled: 1
+  zoomMin: 20
+  zoomMax: 70
+  zoomSpeed: 1
+--- !u!114 &8026263867973587945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6560502851504660114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edfd1ccae2c67594aa9650c53765f881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

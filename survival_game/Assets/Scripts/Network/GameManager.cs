@@ -42,9 +42,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         //set the canvas
         pauseCanvas.SetActive(paused);
-        //set the cursoro lock
+        //set the cursor lock
         //Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
-        //set the cursoro visible
+        //set the cursor visible
         //Cursor.visible = paused;
     }
 
