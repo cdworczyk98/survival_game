@@ -28,6 +28,7 @@ public class InventoryController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Q)){
             CreateRandomItem();
+            print("spawning stuff");
         }
 
        if(selectedItemGrid == null) 
@@ -73,12 +74,11 @@ public class InventoryController : MonoBehaviour
 
     private void LeftMouseButtonPress()
     {
+        
         Vector2Int tileGridPosition = GetTileGridPosition();
-        print("tileGridPosition: "+ tileGridPosition);
 
         if (selectedItem == null)
         {
-            print("Picking up item at the position^^^");
             PickupItem(tileGridPosition);
         }
         else
@@ -119,7 +119,6 @@ public class InventoryController : MonoBehaviour
 
     private void PickupItem(Vector2Int tileGridPosition)
     {
-        print("selectedItem: "+ selectedItem);
         //pickup the item
         selectedItem = selectedItemGrid.PickupItem(tileGridPosition.x, tileGridPosition.y);
         if(selectedItem != null)

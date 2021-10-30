@@ -23,7 +23,6 @@ public class ItemGrid : MonoBehaviour
         {
             for (int iy = 0; iy < item.itemData.hieght; iy++)
             {
-                print("Cleaing cellss: " + ix + "," + iy);
                 inventoryItemSlot[item.onGridPositionX + ix, item.onGridPositionY + iy] = null;
             }
         }
@@ -108,7 +107,6 @@ public class ItemGrid : MonoBehaviour
     public InventoryItem PickupItem(int x, int y)
     {
         InventoryItem toReturn = inventoryItemSlot[x, y];
-        print("inventoryItemSlot[x, y]: "+ inventoryItemSlot[x, y]);
 
         if(toReturn == null) {return null;}
 
